@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>倒影效果</title>
+	<style type='text/css'>
+		*{margin:0; padding:0; list-style:none;}
+		body{background:#000;}
+		.reflector{width:310px; height:310px; background:url(b1.png) no-repeat; position:relative;}
+		.reflector span{width:310px; height:310px; background:-webkit-linear-gradient(rgba(0,0,0,1) 40%, rgba(0,0,0,0)), url(b1.png) no-repeat; position:absolute; left:0; top:318px; -webkit-transform:scale(1,-1); opacity:0.5;}
+		#ul1{}
+		#ul1 li{float:left; padding:10px;}
+	</style>
+	<script>
+		function setStyle(obj, json)
+		{
+			for(var i in json)
+			{
+				obj.style[i]=json[i];
+			}
+		}
+		window.onload=function ()
+		{
+			var oUl=document.getElementById('ul1');
+			var aLi=oUl.children;
+			var aImg=document.querySelectorAll('#ul1 img');			
+			oUl.style.width=aLi.length*aLi[0].offsetWidth+'px';			
+			for(var i=0;i<aImg.length;i++)
+			{
+				var src=aImg[i].src;
+				var oDiv=document.createElement('div');
+				oDiv.className='reflector';				
+				oDiv.innerHTML='<span></span>';				
+				setStyle(oDiv, {
+					width:aImg[i].offsetWidth+'px',
+					height:aImg[i].offsetHeight+'px',
+					background:'url('+src+') no-repeat'
+				});				
+				setStyle(oDiv.children[0], {
+					width:aImg[i].offsetWidth+'px',
+					height:aImg[i].offsetHeight+'px',
+					background:'-webkit-linear-gradient(rgba(0,0,0,1) 40%, rgba(0,0,0,0)), url('+src+') no-repeat',
+					top:(aImg[i].offsetHeight+8)+'px'
+				});				
+				aImg[i].parentNode.appendChild(oDiv);
+				aImg[i].style.display='none';
+			}
+		};
+	</script>
+</head>
+<body>
+	<ul id="ul1">
+		<li><img src="img/m1.jpg" height="310" width="310" alt=""></li>
+		<li><img src="img/m2.jpg" height="310" width="310" alt=""></li>
+		<li><img src="img/m3.jpg" height="310" width="310" alt=""></li>
+		<li><img src="img/m4.jpg" height="310" width="310" alt=""></li>
+		<li><img src="img/m5.jpg" height="310" width="310" alt=""></li>
+		<li><img src="img/m6.jpg" height="310" width="310" alt=""></li>
+	</ul>
+</body>
+</html>

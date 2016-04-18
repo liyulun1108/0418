@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>官网作品展示</title>
+	<style type='text/css'>
+		*{margin:0; padding:0; list-style:none;}
+		ul{width:302px; height:302px; margin:100px auto; position:relative; top:0; left:0; perspective:800px;}
+		ul li{ width:100%; height:100%; background:#399; text-align:center; line-height:300px; font-size:50px; font-weight:bold; border:1px solid #000; position:absolute; top:0; left:0; opacity:0; -webkit-transition:1s all ease;}
+		.l2{-webkit-transform:translate(-250px,0) rotateY(45deg); opacity:0; z-index:1;}
+		.l1{-webkit-transform: translate(-200px,0) rotateY(45deg); opacity:0.8; z-index:2;}
+		.cur{opacity:1; z-index:3;}
+		.r1{-webkit-transform: translate(200px,0) rotateY(-45deg); opacity:0.8; z-index:2;}
+		.r2{-webkit-transform:translate(250px,0) rotateY(-45deg); opacity:0; z-index:1;}
+	</style>
+	<script type='text/javascript'>
+		window.onload=function(){
+			var oPrev = document.querySelector('.prev');
+			var oNext = document.querySelector('.next');
+			var aLi = document.querySelectorAll('ul li');
+			var arr = [];
+			for(var i=0;i<aLi.length;i++){
+				arr[i] = aLi[i].className;
+			}
+			var bOk = false;
+			oPrev.onclick=function(){
+				if(bOk)return;
+				bOk = true;
+				arr.push(arr.shift());
+				for(var i=0;i<arr.length;i++){
+					aLi[i].className=arr[i];
+				}
+			};
+			oNext.onclick=function(){
+				if(bOk)return;
+				bOk = true;
+				arr.unshift(arr.pop());
+				for(var i=0;i<arr.length;i++){
+					aLi[i].className=arr[i];
+				}
+			};
+			for(var i=0;i<aLi.length;i++){
+				aLi[i].addEventListener('transitionend',function(){
+					bOk = false;
+				},false);
+			}
+		};
+	</script>
+</head>
+<body>
+	<ul>
+		<li class='cur'>0</li>
+		<li class='r1'>1</li>
+		<li class='r2'>2</li>
+		<li>3</li>
+		<li>4</li>
+		<li>5</li>
+		<li>6</li>
+		<li>7</li>
+		<li>8</li>
+		<li>9</li>
+		<li>10</li>
+		<li>11</li>
+		<li>12</li>
+		<li>13</li>
+		<li>14</li>
+		<li>15</li>
+		<li class='l2'>16</li>
+		<li class='l1'>17</li>
+	</ul>
+</body>
+</html>
